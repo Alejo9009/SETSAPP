@@ -12,7 +12,7 @@ db.connect((err) => {
     console.error('Error en la conexión a la base de datos:', err.message);
     return;
   }
-  console.log('✅ Conexión exitosa a la base de datos');
+  console.log(' Conexión exitosa a la base de datos');
 });
 
 module.exports = db;
