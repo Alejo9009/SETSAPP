@@ -241,4 +241,7 @@ export const RegisterScreen = () => {
 
 
     );
+
 };
+
+
