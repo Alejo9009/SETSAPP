@@ -200,7 +200,7 @@ export const RegisterScreen = () => {
                         />
                     </View>
 
-                    {/* Botón de Confirmar */}
+        
                     <View style={styles.buttonContainer}>
                         <RoundedButton
                             text='CONFIRMAR'

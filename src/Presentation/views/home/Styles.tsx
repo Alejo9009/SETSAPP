@@ -22,7 +22,7 @@ const HomeStyles = StyleSheet.create({
         height: 120,
         borderRadius: 40,
         borderWidth: 2,
-        borderColor: '#FFF',
+        borderColor: '#045910',
     },
     logoText: {
         color: '#FFF',
@@ -60,7 +60,7 @@ const HomeStyles = StyleSheet.create({
     },
     footerText: {
         fontSize: 14,
-        color: '#555',
+        color: '#045910',
     },
     footerLink: {
         fontSize: 14,

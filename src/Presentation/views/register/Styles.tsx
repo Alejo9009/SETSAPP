@@ -22,7 +22,7 @@ const RegisterStyles = StyleSheet.create({
         height: 120,
         borderRadius: 40, 
         borderWidth: 2,
-        borderColor: '#FFF',
+        borderColor: '#045910',
     },
     logoText: {
         color: '#FFF',
@@ -46,7 +46,7 @@ const RegisterStyles = StyleSheet.create({
     formTitle: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: '#000',
+        color: '#045910',
         textAlign: 'center',
         marginBottom: 20,
     },
@@ -75,7 +75,7 @@ const RegisterStyles = StyleSheet.create({
     },
     footerText: {
         fontSize: 14,
-        color: '#555',
+        color: '#045910',
     },
     footerLink: {
         fontSize: 14,
