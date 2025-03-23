@@ -214,7 +214,7 @@ export const RegisterScreen = () => {
                             <Text style={styles.footerLink}>Iniciar Sesión</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={{ marginTop: 10 }}>
-                            <Text style={styles.footerLink}>Recuperar Contraseña</Text>
+                            <Text  onPress={() => navigation.navigate('ForgotPasswordScreen')} style={styles.footerLink}>Recuperar Contraseña</Text>
                         </TouchableOpacity>
                     </View>
 

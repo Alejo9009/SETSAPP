@@ -61,9 +61,9 @@ export const HomeScreen = () => {
                 <View style={styles.formFooter}>
                     <Text style={styles.footerText}>¿No tienes cuenta?</Text>
                     <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen')}>
-                        <Text style={styles.footerLink}>Regístrate</Text>
+                        <Text style={styles.footerLink}>Regístrarse</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={{ marginTop: 10 }}>
+                    <TouchableOpacity onPress={() => navigation.navigate('ForgotPasswordScreen')} style={{ marginTop: 10 }}>
                         <Text style={styles.footerLink}>Recuperar Contraseña</Text>
                     </TouchableOpacity>
                 </View>
