@@ -12,7 +12,7 @@ export const LoadingScreen = () => {
            
             <ActivityIndicator size="large" color="#097329" />
         
-            <Text style={styles.loadingText}>Cargando....</Text>
+       
         </View>
     );
 };
