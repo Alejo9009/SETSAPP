@@ -14,31 +14,26 @@ import { CustomTextInput } from '../../components/CusatomTextInput';
 import styles from './Styles'
 
 export const RegisterScreen = () => {
-     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-    
+    const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
     return (
         <View style={styles.container}>
-
             <Image
                 source={require('../../../../assets/img/A.jpg')}
                 style={styles.imageBackground}
             />
-
 
             <View style={styles.logoContainer}>
                 <Image
                     source={require('../../../../assets/img/c.png')}
                     style={styles.logoImage}
                 />
-
+                <Text style={styles.logoText}>SETS APP</Text>
             </View>
 
             <View style={styles.form}>
-                <Text style={[styles.formText, { textAlign: 'center' }]}>REGISTRARSE</Text>
-
+                <Text style={styles.formTitle}>REGISTRARSE</Text>
                 <ScrollView contentContainerStyle={styles.scrollContainer}>
-
-
 
                     <View style={styles.formInput}>
                         <Image style={styles.formIcon} source={require('../../../../assets/recursos-humanos.png')} />
@@ -109,10 +104,11 @@ export const RegisterScreen = () => {
                         >
                             <Picker.Item label="Cedula de Ciudadanía" value="1" />
                             <Picker.Item label="Cédula de ciudadanía digital" value="2" />
+                            <Picker.Item label=" Cédulas de Extranjería" value="3" />
 
                         </Picker>
                     </View>
-
+                   
 
                     <View style={styles.formInput}>
                         <Image style={styles.formIcon} source={require('../../../../assets/nuevo.png')} />
@@ -204,44 +200,25 @@ export const RegisterScreen = () => {
                         />
                     </View>
 
-
-                    <View style={{ marginTop: 30 }}>
+                    {/* Botón de Confirmar */}
+                    <View style={styles.buttonContainer}>
                         <RoundedButton
                             text='CONFIRMAR'
                             onPress={() => console.log('Registro exitoso!')}
                         />
                     </View>
-                    <View style={styles.formRegister}>
-                        <Text>¿No tienes cuenta?</Text>
-                        <View>
-                            <TouchableOpacity onPress={() =>
 
-                                navigation.navigate('HomeScreen')}>
-
-                                <Text
-
-                                    style={styles.formRegisterText}>Iniciar Session</Text>
-
-                            </TouchableOpacity>
-
-
-                            <Text
-                                style={[styles.formRegisterText, { marginTop: 14 }]}
-
-                            >
-                                Recuperar Contraseña
-                            </Text>
-                        </View>
+                    <View style={styles.formFooter}>
+                        <Text style={styles.footerText}>¿Ya tienes cuenta?</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+                            <Text style={styles.footerLink}>Iniciar Sesión</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{ marginTop: 10 }}>
+                            <Text style={styles.footerLink}>Recuperar Contraseña</Text>
+                        </TouchableOpacity>
                     </View>
 
                 </ScrollView >
             </View>
-
-        </View>
-
-
-    );
-
-};
-
-
+            </View>
+ )};
