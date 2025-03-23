@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TextInput, ToastAndroid ,TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, ToastAndroid, TouchableOpacity } from 'react-native';
 import { RoundedButton } from '../../components/RoundedButton';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -26,8 +26,7 @@ export const HomeScreen = () => {
                 <Text style={styles.logoText}>SETS APP</Text>
             </View>
             <View style={styles.form}>
-                <Text style={[styles.formText, { textAlign: 'center' }]}>INICIAR SESIÓN</Text>
-
+                <Text style={styles.formTitle}  >INICIAR SESIÓN</Text>
 
                 <CustomTextInput
                     image={require('../../../../assets/email.png')}
@@ -46,15 +45,9 @@ export const HomeScreen = () => {
                     onChangeText={onChange}
                     value={Clave}
                     secureTextEntry={true}
-
                 />
 
-
-
-
-
-
-                <View style={{ marginTop: 30 }}>
+                <View style={styles.buttonContainer}>
                     <RoundedButton
                         text='ENTRAR'
                         onPress={() => {
@@ -65,28 +58,14 @@ export const HomeScreen = () => {
                     />
                 </View>
 
-
-                <View style={styles.formRegister}>
-                    <Text>¿No tienes cuenta?</Text>
-                    <View>
-                        <TouchableOpacity onPress={() =>
-
-                            navigation.navigate('RegisterScreen')}>
-
-                            <Text
-
-                                style={styles.formRegisterText}>Regístrate</Text>
-
-                        </TouchableOpacity>
-
-
-                        <Text
-                            style={[styles.formRegisterText, { marginTop: 14 }]}
-
-                        >
-                            Recuperar Contraseña
-                        </Text>
-                    </View>
+                <View style={styles.formFooter}>
+                    <Text style={styles.footerText}>¿No tienes cuenta?</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen')}>
+                        <Text style={styles.footerLink}>Regístrate</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{ marginTop: 10 }}>
+                        <Text style={styles.footerLink}>Recuperar Contraseña</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         </View>
