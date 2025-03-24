@@ -6,6 +6,7 @@ import { RegisterScreen } from './src/Presentation/views/register/Register';
 import { LoadingScreen } from './src/Presentation/components/LoadingScreen';
 import { ForgotPasswordScreen } from './src/Presentation/views/recuperar/recuperar';
 
+
 export type RootStackParamList = {
     HomeScreen: undefined;
     RegisterScreen: undefined;
