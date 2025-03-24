@@ -1,17 +1,87 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, ToastAndroid, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image, ToastAndroid, TouchableOpacity ,  } from 'react-native';
 import { RoundedButton } from '../../components/RoundedButton';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../../../App';
-import useViewModel from './viewModel';
 import { CustomTextInput } from '../../components/CusatomTextInput';
 import styles from './Styles';
 
 export const HomeScreen = () => {
-    const { Usuario, Clave, onChange } = useViewModel();
+    const [user, setUser] = useState({
+        Usuario: '',
+        Clave: ''
+    });
+
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
+    const onChange = (property: string, value: string) => {
+        setUser({...user, [property]: value});
+    }
+
+    const handleLogin = async () => {
+        if (user.Usuario === '' || user.Clave === '') {
+            ToastAndroid.show('Usuario y contraseña son requeridos', ToastAndroid.SHORT);
+            return;
+        }
+    
+        try {
+            const response = await fetch('http://192.168.1.105:3000/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(user)
+            });
+    
+            // Verificar primero el estado de la respuesta
+            const responseText = await response.text();
+            let data;
+            
+            try {
+                data = JSON.parse(responseText);
+            } catch (e) {
+                console.error('Error parsing JSON:', e, 'Response:', responseText);
+                ToastAndroid.show('Error en la respuesta del servidor', ToastAndroid.LONG);
+                return;
+            }
+    
+            if (!response.ok) {
+                ToastAndroid.show(data.error || 'Error en el inicio de sesión', ToastAndroid.SHORT);
+                return;
+            }
+    
+            // Redirección según el rol
+            switch(data.user.idRol) {
+                case '1111': // Admin
+                    navigation.replace('ForgotPasswordScreen');
+                    break;
+                case '2222': // Guarda de Seguridad
+                    navigation.replace('ForgotPasswordScreen');
+                    break;
+                case '3333': // Residente
+                    navigation.replace('ForgotPasswordScreen');
+                    break;
+                default:
+                    navigation.replace('HomeScreen');
+            }
+            ToastAndroid.show('Inicio de sesión exitoso', ToastAndroid.SHORT);
+        } catch (error) {
+            console.error('Error en inicio de sesión:', error);
+            
+            // Manejo seguro del mensaje de error
+            let errorMessage = 'Error de conexión';
+            if (error instanceof Error) {
+                errorMessage = error.message;
+            } else if (typeof error === 'string') {
+                errorMessage = error;
+            } else if (error && typeof error === 'object' && 'message' in error) {
+                
+            }
+            
+            ToastAndroid.show(errorMessage, ToastAndroid.SHORT);
+        }
+    };
     return (
         <View style={styles.container}>
             <Image
@@ -26,7 +96,7 @@ export const HomeScreen = () => {
                 <Text style={styles.logoText}>SETS APP</Text>
             </View>
             <View style={styles.form}>
-                <Text style={styles.formTitle}  >INICIAR SESIÓN</Text>
+                <Text style={styles.formTitle}>INICIAR SESIÓN</Text>
 
                 <CustomTextInput
                     image={require('../../../../assets/email.png')}
@@ -34,7 +104,7 @@ export const HomeScreen = () => {
                     keyboardType='default'
                     property='Usuario'
                     onChangeText={onChange}
-                    value={Usuario}
+                    value={user.Usuario}
                 />
 
                 <CustomTextInput
@@ -43,18 +113,14 @@ export const HomeScreen = () => {
                     keyboardType='default'
                     property='Clave'
                     onChangeText={onChange}
-                    value={Clave}
+                    value={user.Clave}
                     secureTextEntry={true}
                 />
 
                 <View style={styles.buttonContainer}>
                     <RoundedButton
                         text='ENTRAR'
-                        onPress={() => {
-                            console.log('Usuario:', Usuario);
-                            console.log('Contraseña:', Clave);
-                            ToastAndroid.show('Iniciando sesión...', ToastAndroid.SHORT);
-                        }}
+                        onPress={handleLogin}
                     />
                 </View>
 
