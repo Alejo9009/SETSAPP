@@ -45,21 +45,68 @@ class User {
     }
 
     
+    static findByEmail(email, callback) {
+        connection.query(
+            'SELECT * FROM registro WHERE Correo = ? LIMIT 1', 
+            [email], 
+            (err, results) => {
+                if (err) return callback(err);
+                if (results[0]) {
+                    results[0].id = results[0].id_Registro;
+                }
+                callback(null, results[0]);
+            }
+        );
+    }
+
     static findByUsername(username, callback) {
-      // SOLUCIÓN: Cambiar la consulta para que funcione con MariaDB
-      connection.query(
-          'SELECT id_Registro, idRol, PrimerNombre, SegundoNombre, PrimerApellido, SegundoApellido, apartamento, Correo, Usuario, Clave, Id_tipoDocumento, numeroDocumento, telefonoUno, telefonoDos, tipo_propietario FROM registro WHERE Usuario = ? LIMIT 1', 
-          [username], 
-          (err, results) => {
-              if (err) return callback(err);
-              // Asegurar que el objeto user tenga id_Registro como id
-              if (results[0]) {
-                  results[0].id = results[0].id_Registro;
-              }
-              callback(null, results[0]);
-          }
-      );
-  }
+        const query = `
+            SELECT 
+                r.id_Registro, 
+                r.idRol, 
+                rol.Roldescripcion as rolNombre,
+                r.PrimerNombre, 
+                r.SegundoNombre, 
+                r.PrimerApellido, 
+                r.SegundoApellido, 
+                r.apartamento, 
+                r.Correo, 
+                r.Usuario, 
+                r.Clave, 
+                r.Id_tipoDocumento, 
+                r.numeroDocumento, 
+                r.telefonoUno, 
+                r.telefonoDos, 
+                r.tipo_propietario 
+            FROM 
+                registro r
+            JOIN 
+                rol ON r.idRol = rol.id
+            WHERE 
+                r.Usuario = ? 
+            LIMIT 1
+        `;
+        
+        connection.query(query, [username], (err, results) => {
+            if (err) return callback(err);
+            if (results[0]) {
+                results[0].id = results[0].id_Registro;
+            }
+            callback(null, results[0]);
+        });
+    }
+
+    static findById(id, callback) {
+        connection.query(
+            'SELECT * FROM registro WHERE id_Registro = ? LIMIT 1', 
+            [id], 
+            (err, results) => {
+                if (err) return callback(err);
+                callback(null, results[0]);
+            }
+        );
+    }
 }
+
 
 module.exports = User;

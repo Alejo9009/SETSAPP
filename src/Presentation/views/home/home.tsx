@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, Image, ToastAndroid, TouchableOpacity ,  } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Image, ToastAndroid, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { RoundedButton } from '../../components/RoundedButton';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -7,13 +7,58 @@ import { RootStackParamList } from '../../../../App';
 import { CustomTextInput } from '../../components/CusatomTextInput';
 import styles from './Styles';
 
+interface Role {
+  id: number;
+  Roldescripcion: string;
+}
+
 export const HomeScreen = () => {
     const [user, setUser] = useState({
         Usuario: '',
         Clave: ''
     });
 
+    const [roles, setRoles] = useState<Role[]>([]);
+    const [loadingRoles, setLoadingRoles] = useState(true);
+    const [loginLoading, setLoginLoading] = useState(false);
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+    // Cargar roles al iniciar la pantalla
+    useEffect(() => {
+        const fetchRoles = async () => {
+            try {
+                const response = await fetch('http://192.168.1.105:3000/api/auth/roles');
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    setRoles(data.roles);
+                } else {
+                    console.error('Error al cargar roles:', data.error);
+                    // Roles de respaldo
+                    setRoles([
+                        { id: 1111, Roldescripcion: 'admin' },
+                        { id: 2222, Roldescripcion: 'Guarda de Seguridad' },
+                        { id: 3333, Roldescripcion: 'residente' },
+                    ]);
+                    ToastAndroid.show('Error al cargar roles. Usando valores predeterminados', ToastAndroid.LONG);
+                }
+            } catch (error) {
+                console.error('Error de conexión:', error);
+                // Roles de respaldo
+                setRoles([
+                    { id: 1111, Roldescripcion: 'admin' },
+                    { id: 2222, Roldescripcion: 'Guarda de Seguridad' },
+                    { id: 3333, Roldescripcion: 'residente' },
+
+                ]);
+                ToastAndroid.show('Error de conexión. Usando valores predeterminados', ToastAndroid.LONG);
+            } finally {
+                setLoadingRoles(false);
+            }
+        };
+        
+        fetchRoles();
+    }, []);
 
     const onChange = (property: string, value: string) => {
         setUser({...user, [property]: value});
@@ -25,6 +70,8 @@ export const HomeScreen = () => {
             return;
         }
     
+        setLoginLoading(true);
+    
         try {
             const response = await fetch('http://192.168.1.105:3000/api/auth/login', {
                 method: 'POST',
@@ -34,54 +81,49 @@ export const HomeScreen = () => {
                 body: JSON.stringify(user)
             });
     
-            // Verificar primero el estado de la respuesta
-            const responseText = await response.text();
-            let data;
-            
-            try {
-                data = JSON.parse(responseText);
-            } catch (e) {
-                console.error('Error parsing JSON:', e, 'Response:', responseText);
-                ToastAndroid.show('Error en la respuesta del servidor', ToastAndroid.LONG);
-                return;
-            }
+            const data = await response.json();
     
             if (!response.ok) {
                 ToastAndroid.show(data.error || 'Error en el inicio de sesión', ToastAndroid.SHORT);
                 return;
             }
     
-            // Redirección según el rol
-            switch(data.user.idRol) {
-                case '1111': // Admin
-                    navigation.replace('ForgotPasswordScreen');
-                    break;
-                case '2222': // Guarda de Seguridad
-                    navigation.replace('ForgotPasswordScreen');
-                    break;
-                case '3333': // Residente
-                    navigation.replace('ForgotPasswordScreen');
-                    break;
-                default:
-                    navigation.replace('HomeScreen');
+            // Verificación mejorada de la respuesta
+            const roleName = data.user?.rol?.nombre || data.user?.rolNombre;
+            
+            if (!roleName) {
+                console.error('Estructura de respuesta inesperada:', data);
+                ToastAndroid.show('Error: Estructura de datos inesperada', ToastAndroid.SHORT);
+                return;
             }
+    
+            // Redirección con manejo robusto
+            const normalizedRole = roleName.toLowerCase().trim();
+            
+            if (normalizedRole.includes('admin')) {
+                navigation.replace('AdminLoadingScreen');
+            } 
+            else if (normalizedRole.includes('Guarda de Seguridad') || normalizedRole.includes('segur')) {
+                navigation.replace('GuardaLoadingScreen');
+            }
+            else if (normalizedRole.includes('residente')) {
+                navigation.replace('ResidenteLoadingScreen');
+            }
+
+            else {
+                ToastAndroid.show(`Rol no configurado: ${roleName}`, ToastAndroid.SHORT);
+                return;
+            }
+            
             ToastAndroid.show('Inicio de sesión exitoso', ToastAndroid.SHORT);
         } catch (error) {
             console.error('Error en inicio de sesión:', error);
-            
-            // Manejo seguro del mensaje de error
-            let errorMessage = 'Error de conexión';
-            if (error instanceof Error) {
-                errorMessage = error.message;
-            } else if (typeof error === 'string') {
-                errorMessage = error;
-            } else if (error && typeof error === 'object' && 'message' in error) {
-                
-            }
-            
-            ToastAndroid.show(errorMessage, ToastAndroid.SHORT);
+            ToastAndroid.show('Error de conexión con el servidor', ToastAndroid.SHORT);
+        } finally {
+            setLoginLoading(false);
         }
     };
+
     return (
         <View style={styles.container}>
             <Image
@@ -119,8 +161,9 @@ export const HomeScreen = () => {
 
                 <View style={styles.buttonContainer}>
                     <RoundedButton
-                        text='ENTRAR'
+                        text={loginLoading ? 'CARGANDO...' : 'ENTRAR'}
                         onPress={handleLogin}
+                    
                     />
                 </View>
 

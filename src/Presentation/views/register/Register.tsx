@@ -52,7 +52,6 @@ export const RegisterScreen = () => {
                         { id: 1111, Roldescripcion: 'Admin' },
                         { id: 2222, Roldescripcion: 'Guarda de Seguridad' },
                         { id: 3333, Roldescripcion: 'Residente' },
-                        { id: 4444, Roldescripcion: 'Dueño' }
                     ]);
                     ToastAndroid.show('Error al cargar roles. Usando valores predeterminados', ToastAndroid.LONG);
                 }
@@ -63,7 +62,6 @@ export const RegisterScreen = () => {
                     { id: 1111, Roldescripcion: 'Admin' },
                     { id: 2222, Roldescripcion: 'Guarda de Seguridad' },
                     { id: 3333, Roldescripcion: 'Residente' },
-                    { id: 4444, Roldescripcion: 'Dueño' }
                 ]);
                 ToastAndroid.show('Error de conexión. Usando valores predeterminados', ToastAndroid.LONG);
             } finally {
