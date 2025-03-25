@@ -1,15 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 import { Picker } from '@react-native-picker/picker';
-import {  View, Text, StyleSheet, Image, TextInput, ToastAndroid, ScrollView, TouchableOpacity, Alert} from 'react-native';
+import { View, Text, Image, TextInput, ToastAndroid, ScrollView, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { RoundedButton } from '../../components/RoundedButton';
 import { RootStackParamList } from '../../../../App';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import styles from './Styles'
+import styles from './Styles';
 import { MyColors } from '../../theme/AppTheme';
+
+interface Role {
+    id: number;
+    Roldescripcion: string;
+}
 
 export const RegisterScreen = () => {
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+    const [roles, setRoles] = useState<Role[]>([]);
+    const [loadingRoles, setLoadingRoles] = useState(true);
     
     const [user, setUser] = useState({
         idRol: '', 
@@ -28,6 +35,44 @@ export const RegisterScreen = () => {
         Clave: '',
         confirmPassword: ''
     });
+
+    // Cargar roles al montar el componente
+    useEffect(() => {
+        const fetchRoles = async () => {
+            try {
+                const response = await fetch('http://192.168.1.105:3000/api/auth/roles');
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    setRoles(data.roles);
+                } else {
+                    console.error('Error al cargar roles:', data.error);
+                    // Roles de respaldo por si falla la conexión
+                    setRoles([
+                        { id: 1111, Roldescripcion: 'Admin' },
+                        { id: 2222, Roldescripcion: 'Guarda de Seguridad' },
+                        { id: 3333, Roldescripcion: 'Residente' },
+                        { id: 4444, Roldescripcion: 'Dueño' }
+                    ]);
+                    ToastAndroid.show('Error al cargar roles. Usando valores predeterminados', ToastAndroid.LONG);
+                }
+            } catch (error) {
+                console.error('Error de conexión:', error);
+                // Roles de respaldo por si falla la conexión
+                setRoles([
+                    { id: 1111, Roldescripcion: 'Admin' },
+                    { id: 2222, Roldescripcion: 'Guarda de Seguridad' },
+                    { id: 3333, Roldescripcion: 'Residente' },
+                    { id: 4444, Roldescripcion: 'Dueño' }
+                ]);
+                ToastAndroid.show('Error de conexión. Usando valores predeterminados', ToastAndroid.LONG);
+            } finally {
+                setLoadingRoles(false);
+            }
+        };
+        
+        fetchRoles();
+    }, []);
 
     const handleChange = (name: string, value: string) => {
         setUser({ ...user, [name]: value });
@@ -56,7 +101,6 @@ export const RegisterScreen = () => {
                 },
                 body: JSON.stringify({
                     ...user,
-          
                     numeroDocumento: Number(user.numeroDocumento),
                     telefonoUno: Number(user.telefonoUno),
                     telefonoDos: user.telefonoDos ? Number(user.telefonoDos) : null
@@ -69,14 +113,15 @@ export const RegisterScreen = () => {
                 // Redirección según el rol
                 switch(user.idRol) {
                     case '1111': // Admin
-                        navigation.replace('HomeScreen');
+                        navigation.replace('AdminLoadingScreen');
                         break;
                     case '2222': // Guarda de Seguridad
-                        navigation.replace('HomeScreen');
+                        navigation.replace('GuardaLoadingScreen');
                         break;
                     case '3333': // Residente
-                        navigation.replace('HomeScreen');
+                        navigation.replace('ResidenteLoadingScreen');
                         break;
+
                     default:
                         navigation.replace('HomeScreen');
                 }
@@ -109,18 +154,29 @@ export const RegisterScreen = () => {
                 <Text style={styles.formTitle}>REGISTRARSE</Text>
                 <ScrollView contentContainerStyle={styles.scrollContainer}>
 
-                    <View style={styles.formInput}>
+                <View style={styles.formInput}>
                         <Image style={styles.formIcon} source={require('../../../../assets/recursos-humanos.png')} />
-                        <Picker
-                            style={styles.formTextInput}
-                            selectedValue={user.idRol}
-                            onValueChange={(value) => handleChange('idRol', value)}
-                        >
-                            <Picker.Item label="Admin" value="1111" />
-                            <Picker.Item label="Guarda de Seguridad" value="2222" />
-                            <Picker.Item label="Residente" value="3333" />
-                         
-                        </Picker>
+                        {loadingRoles ? (
+                            <View style={styles.loadingContainer}>
+                                <ActivityIndicator size="small" color={MyColors.primary} />
+                                <Text style={styles.loadingText}>Cargando roles...</Text>
+                            </View>
+                        ) : (
+                            <Picker
+                                style={styles.formTextInput}
+                                selectedValue={user.idRol}
+                                onValueChange={(value) => handleChange('idRol', value)}
+                            >
+                                <Picker.Item label="Seleccione un rol..." value="" />
+                                {roles.map((role) => (
+                                    <Picker.Item 
+                                        key={role.id} 
+                                        label={role.Roldescripcion} 
+                                        value={role.id.toString()} 
+                                    />
+                                ))}
+                            </Picker>
+                        )}
                     </View>
 
                     <View style={styles.formInput}>

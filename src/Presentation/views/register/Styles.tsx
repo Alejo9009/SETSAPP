@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 
+
 const RegisterStyles = StyleSheet.create({
     container: {
         flex: 1,
@@ -86,6 +87,16 @@ const RegisterStyles = StyleSheet.create({
     scrollContainer: {
         flexGrow: 1,
         justifyContent: 'center',
+    },
+
+    loadingContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: 10,
+    },
+    loadingText: {
+        marginLeft: 10,
+        color: 'green',
     },
 });
 
