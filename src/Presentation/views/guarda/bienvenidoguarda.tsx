@@ -40,7 +40,7 @@ export const Guardabienvenido: React.FC = () => {
 
             <View style={styles.messageBox}>
                 <Text style={styles.messageText}>
-                    Ahora puedes comenzar a usar todas las funciones de seguridad disponibles.
+                    Ahora puedes comenzar a usar todas las funciones  disponibles.
                 </Text>
             </View>
         </Animated.View>
