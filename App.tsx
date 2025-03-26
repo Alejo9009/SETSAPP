@@ -9,6 +9,7 @@ import { GuardaLoadingScreen } from './src/Presentation/views/guarda/GuardaLoadi
 import { ResidenteLoadingScreen } from './src/Presentation/views/residente/ResidenteLoadingScreen';
 import { AdminLoadingScreen } from './src/Presentation/views/admin/AdminLoadingScreen';
 import { registeradminloading } from './src/Presentation/views/admin/registeradminloading';
+import { registerloadinresidente } from './src/Presentation/views/residente/registerloadinresidente';
 
 
 export type RootStackParamList = {
@@ -19,7 +20,7 @@ export type RootStackParamList = {
     ResidenteLoadingScreen: undefined;
     AdminLoadingScreen: undefined;
     registeradminloading: undefined;
-
+    registerloadinresidente: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -49,6 +50,8 @@ const App = () => {
                 <Stack.Screen name="ResidenteLoadingScreen" component={ResidenteLoadingScreen} />
                 <Stack.Screen name="AdminLoadingScreen" component={AdminLoadingScreen} />
                 <Stack.Screen name="registeradminloading" component={registeradminloading} />
+                <Stack.Screen name="registerloadinresidente" component={registerloadinresidente} />
+                
 
 
             </Stack.Navigator>

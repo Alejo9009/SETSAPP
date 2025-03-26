@@ -117,7 +117,7 @@ export const RegisterScreen = () => {
                         navigation.replace('GuardaLoadingScreen');
                         break;
                     case '3333': // Residente
-                        navigation.replace('ResidenteLoadingScreen');
+                        navigation.replace('registerloadinresidente');
                         break;
 
                     default:
