@@ -8,6 +8,7 @@ import { ForgotPasswordScreen } from './src/Presentation/views/recuperar/recuper
 import { GuardaLoadingScreen } from './src/Presentation/views/guarda/GuardaLoadingScreen';
 import { ResidenteLoadingScreen } from './src/Presentation/views/residente/ResidenteLoadingScreen';
 import { AdminLoadingScreen } from './src/Presentation/views/admin/AdminLoadingScreen';
+import { registeradminloading } from './src/Presentation/views/admin/registeradminloading';
 
 
 export type RootStackParamList = {
@@ -17,6 +18,7 @@ export type RootStackParamList = {
     GuardaLoadingScreen: undefined;
     ResidenteLoadingScreen: undefined;
     AdminLoadingScreen: undefined;
+    registeradminloading: undefined;
 
 };
 
@@ -46,6 +48,9 @@ const App = () => {
                 <Stack.Screen name="GuardaLoadingScreen" component={GuardaLoadingScreen} />
                 <Stack.Screen name="ResidenteLoadingScreen" component={ResidenteLoadingScreen} />
                 <Stack.Screen name="AdminLoadingScreen" component={AdminLoadingScreen} />
+                <Stack.Screen name="registeradminloading" component={registeradminloading} />
+
+
             </Stack.Navigator>
         </NavigationContainer>
     );

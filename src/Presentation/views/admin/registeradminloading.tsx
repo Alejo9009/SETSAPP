@@ -5,7 +5,7 @@ import { RootStackParamList } from '../../../../App';
 import { useNavigation } from '@react-navigation/native';
 
 
-export const AdminLoadingScreen: React.FC = () => {
+export const registeradminloading: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   useEffect(() => {

@@ -111,7 +111,7 @@ export const RegisterScreen = () => {
                 // Redirección según el rol
                 switch(user.idRol) {
                     case '1111': // Admin
-                        navigation.replace('AdminLoadingScreen');
+                        navigation.replace('registeradminloading');
                         break;
                     case '2222': // Guarda de Seguridad
                         navigation.replace('GuardaLoadingScreen');
