@@ -9,7 +9,7 @@ export const guardaregistroloading: React.FC = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.replace('RegisterScreen');
+      navigation.replace('Guardabienvenido');
     }, 2000); 
 
     return () => clearTimeout(timer);

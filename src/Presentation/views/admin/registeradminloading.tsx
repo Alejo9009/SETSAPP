@@ -10,7 +10,7 @@ export const registeradminloading: React.FC = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.replace('RegisterScreen');
+      navigation.replace('adminbienvenido');
     }, 2000); 
 
     return () => clearTimeout(timer);

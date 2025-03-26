@@ -22,7 +22,7 @@ export const adminbienvenido: React.FC = () => {
 
         const timer = setTimeout(() => {
             navigation.replace('GuardaLoadingScreen');
-        }, 3000);
+        }, 2000);
         return () => clearTimeout(timer);
     }, [navigation, fadeAnim]);
 
@@ -47,39 +47,40 @@ export const adminbienvenido: React.FC = () => {
     );
 };
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#f0f8ff',
+        backgroundColor: '#ffff',
 
     },
     logo: {
-        width: 120,
-        height: 120,
+        width: 150,
+        height: 150,
         marginBottom: 25,
     },
     welcomeTitle: {
         fontSize: 28,
         fontWeight: 'bold',
-        color: '#1a3e72',
+        color: '#0f521b',
         marginBottom: 10,
     },
     welcomeSubtitle: {
-        fontSize: 18,
-        color: '#4a6da7',
+        fontSize: 19,
+        color: '#0f521b',
         marginBottom: 30,
     },
     messageBox: {
-        backgroundColor: '#e1ecf7',
-        padding: 20,
-        borderRadius: 10,
+        backgroundColor: '#e1f7ec',
+        padding: 23,
+        borderRadius: 13,
         width: '80%',
     },
     messageText: {
         textAlign: 'center',
-        color: '#2c4e7e',
-        fontSize: 16,
+        color: '#0f521b',
+        fontSize: 18,
     },
 });
