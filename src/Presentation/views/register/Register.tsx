@@ -114,7 +114,7 @@ export const RegisterScreen = () => {
                         navigation.replace('registeradminloading');
                         break;
                     case '2222': // Guarda de Seguridad
-                        navigation.replace('GuardaLoadingScreen');
+                        navigation.replace('guardaregistroloading');
                         break;
                     case '3333': // Residente
                         navigation.replace('registerloadinresidente');
