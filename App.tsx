@@ -11,6 +11,9 @@ import { AdminLoadingScreen } from './src/Presentation/views/admin/AdminLoadingS
 import { registeradminloading } from './src/Presentation/views/admin/registeradminloading';
 import { registerloadinresidente } from './src/Presentation/views/residente/registerloadinresidente';
 import { guardaregistroloading } from './src/Presentation/views/guarda/guardaregistroloading';
+import { residentebienvenido } from './src/Presentation/views/residente/bienvenidoresidente';
+import { Guardabienvenido } from './src/Presentation/views/guarda/bienvenidoguarda';
+import { adminbienvenido } from './src/Presentation/views/admin/bienvenidoadmin';
 
 
 export type RootStackParamList = {
@@ -23,6 +26,9 @@ export type RootStackParamList = {
     registeradminloading: undefined;
     registerloadinresidente: undefined;
     guardaregistroloading: undefined;
+    residentebienvenido: undefined;
+    Guardabienvenido: undefined;
+    adminbienvenido:undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -54,6 +60,9 @@ const App = () => {
                 <Stack.Screen name="registeradminloading" component={registeradminloading} />
                 <Stack.Screen name="registerloadinresidente" component={registerloadinresidente} />
                 <Stack.Screen name="guardaregistroloading" component={guardaregistroloading} />
+                <Stack.Screen name="residentebienvenido" component={residentebienvenido} />
+                <Stack.Screen name="Guardabienvenido" component={Guardabienvenido} />
+                <Stack.Screen name="adminbienvenido" component={adminbienvenido} />
                 
 
 
