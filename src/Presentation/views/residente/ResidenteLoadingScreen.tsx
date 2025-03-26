@@ -10,7 +10,7 @@ export const ResidenteLoadingScreen: React.FC = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.replace('RegisterScreen');
+      navigation.replace('ResidentePrincipal');
     }, 2000); 
 
     return () => clearTimeout(timer);

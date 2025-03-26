@@ -21,7 +21,7 @@ export const residentebienvenido: React.FC = () => {
 
 
         const timer = setTimeout(() => {
-            navigation.replace('residentebienvenido');
+            navigation.replace('ResidentePrincipal');
         }, 2000);
         return () => clearTimeout(timer);
     }, [navigation, fadeAnim]);
