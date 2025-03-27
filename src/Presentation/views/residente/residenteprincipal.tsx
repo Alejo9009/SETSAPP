@@ -49,7 +49,7 @@ const ResidentePrincipal = () => {
       <Text style={styles.noticiaResumen}>{item.resumen}</Text>
       <TouchableOpacity style={styles.verMasBtn}>
         <Text style={styles.verMasText}>Ver más</Text>
-        <MaterialIcons name="arrow-forward" size={16} color="#3498db" />
+        <MaterialIcons name="arrow-forward" size={16} color="#091f09" />
       </TouchableOpacity>
     </View>
   );
@@ -69,15 +69,16 @@ const ResidentePrincipal = () => {
             style={styles.logo}
           />
           <View style={styles.welcomeContainer}> {/* Añadimos este contenedor */}
-            <Text style={styles.welcomeText}>Bienvenido,</Text>
-            <Text style={styles.userName}>Residente</Text>
+          <Text style={styles.userName}>Residente</Text>
+            <Text style={styles.welcomeText}>Ronaldo</Text>
+          
           </View>
         </View>
         <TouchableOpacity 
           style={styles.notificationIcon}
           onPress={() => navigation.navigate('Notificaciones')}
         >
-          <Ionicons name="notifications-outline" size={24} color="#333" />
+          <Ionicons name="notifications-outline" size={24} color="#1d4a1d" />
           <View style={styles.notificationBadge} />
         </TouchableOpacity>
       </View>
@@ -86,13 +87,13 @@ const ResidentePrincipal = () => {
         <View style={styles.menuContainer}>
           <TouchableOpacity 
             style={styles.menuItem}
-            onPress={() => navigation.navigate('Apartamento')}
+            onPress={() => navigation.navigate('Parqueadero')}
           >
             <Image 
-              source={require('./img/departamento.png')} 
+              source={require('./img/estacionamiento (1).png')} 
               style={styles.menuIcon}
             />
-            <Text style={styles.menuText}>Mi apartamento</Text>
+            <Text style={styles.menuText}>Parqueadero</Text>
           </TouchableOpacity>
 
           <TouchableOpacity 
@@ -111,7 +112,7 @@ const ResidentePrincipal = () => {
             onPress={() => navigation.navigate('ZonasComunes')}
           >
             <Image 
-              source={require('./img/fiesta.png')} 
+              source={require('./img/eeeeeeeeeeeeeeee.png')} 
               style={styles.menuIcon}
             />
             <Text style={styles.menuText}>Zonas comunes</Text>
@@ -122,41 +123,29 @@ const ResidentePrincipal = () => {
             onPress={() => navigation.navigate('Manual')}
           >
             <Image 
-              source={require('./img/instrucciones.png')} 
+              source={require('./img/manual.png')} 
               style={styles.menuIcon}
             />
-            <Text style={styles.menuText}>Manual de convivencia</Text>
+            <Text style={styles.menuText}>Manual de Convivencia</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity 
-            style={styles.menuItem}
-            onPress={() => navigation.navigate('Perfil')}
-          >
-            <Image 
-              source={require('./img/ajustes.png')} 
-              style={styles.menuIcon}
-            />
-            <Text style={styles.menuText}>Mi Perfil</Text>
-          </TouchableOpacity>
+
         </View>
 
         {/* Sección de Noticias */}
         <View style={styles.noticiasSection}>
-          <Text style={styles.sectionTitle}>Últimas Noticias</Text>
+          <Text style={styles.sectionTitle}>🔔 ANUNCIOS🔔 </Text>
           <FlatList
             data={noticias}
             renderItem={NoticiaItem}
             keyExtractor={item => item.id}
             scrollEnabled={false}
           />
-          <TouchableOpacity style={styles.verTodasBtn}>
-            <Text style={styles.verTodasText}>Ver todas las noticias</Text>
-          </TouchableOpacity>
         </View>
 
 
        <View style={styles.footer}>
-          <Text style={styles.footerText}>Versión 1.0.0</Text>
+          <Text style={styles.footerText}>Versión 0.1.0</Text>
         </View>
       </ScrollView>
 
@@ -166,7 +155,7 @@ const ResidentePrincipal = () => {
           style={styles.navItem} 
           onPress={() => navigation.navigate('Inicio')}
         >
-          <Ionicons name="home-outline" size={24} color="#4A90E2" />
+          <Ionicons name="home-outline" size={24} color="#fff" />
           <Text style={styles.navText}>Inicio</Text>
         </TouchableOpacity>
         
@@ -174,15 +163,15 @@ const ResidentePrincipal = () => {
           style={styles.navItem} 
           onPress={() => navigation.navigate('Documentos')}
         >
-          <Ionicons name="document-text-outline" size={24} color="#888" />
-          <Text style={styles.navText}>Documentos</Text>
+         <Ionicons name="card-outline" size={24} color="#fff" />
+         <Text style={styles.navText}>Pagos</Text>
         </TouchableOpacity>
         
         <TouchableOpacity 
           style={styles.navItem} 
           onPress={() => navigation.navigate('Perfil')}
         >
-          <Ionicons name="person-outline" size={24} color="#888" />
+          <Ionicons name="person-outline" size={24} color="#fff" />
           <Text style={styles.navText}>Perfil</Text>
         </TouchableOpacity>
         
@@ -190,8 +179,8 @@ const ResidentePrincipal = () => {
           style={styles.navItem} 
           onPress={() => navigation.navigate('Login')}
         >
-          <Ionicons name="log-out-outline" size={24} color="#888" />
-          <Text style={styles.navText}>Salir</Text>
+          <Ionicons name="log-out-outline" size={24} color="#fff" />
+          <Text style={styles.navText}>Cerrar Session</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -200,13 +189,13 @@ const ResidentePrincipal = () => {
 
 const styles = StyleSheet.create({
   safeArea: {
-    flex: 1,
+    flex: 2,
     backgroundColor: '#fff',
   },
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
-    padding: 20,
+    padding: 12,
     marginBottom: 60, 
   },
   header: {
@@ -220,19 +209,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    width: 60,
+    width: 50,
     height: 60,
-    borderRadius: 30,
-    marginRight: 15,
+    borderRadius: 50,
+    marginRight: 46,
   },
   welcomeText: {
-    fontSize: 16,
-    color: '#666',
+    fontSize: 19,
+    color: '#0d330d',
+    fontWeight: '900',
   },
   userName: {
     fontSize: 20,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: '900',
+    color: '#0d330d',
+
   },
   notificationIcon: {
     position: 'relative',
@@ -256,64 +247,66 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     marginBottom: 15,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    shadowColor: '#092b09',
+    shadowOffset: { width: 0, height: 22 },
+    shadowOpacity: 12.5,
+    shadowRadius: 5,
+    elevation: 6,
   },
   menuIcon: {
-    width: 30,
-    height: 30,
+    width: 55,
+    height: 55,
     marginRight: 15,
   },
   menuText: {
-    fontSize: 18,
-    color: '#444',
+    fontSize: 16,
+    color: '#092b09',
+    fontWeight: '700',
   },
   noticiasSection: {
     marginBottom: 20,
   },
   sectionTitle: {
-    fontSize: 20,
+    fontSize: 23,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#092b05',
     marginBottom: 15,
-    paddingLeft: 5,
+    paddingLeft: 45,
+    alignItems: 'center',
   },
   noticiaItem: {
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 15,
     marginBottom: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    shadowColor: '#1e871e',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 1.1,
+    shadowRadius: 5,
+    elevation: 7,
   },
   noticiaImportante: {
-    borderLeftWidth: 4,
-    borderLeftColor: '#ff6b6b',
+    borderLeftWidth: 14,
+    borderLeftColor: '#1e871e',
   },
   noticiaHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 8,
+    marginBottom: 50,
   },
   noticiaTitulo: {
     fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: '900',
+    color: '#032109',
     flex: 1,
   },
   noticiaFecha: {
-    fontSize: 12,
-    color: '#888',
+    fontSize: 10,
+    color: '#1e871e',
   },
   noticiaResumen: {
     fontSize: 14,
-    color: '#555',
+    color: '#1e871e',
     marginBottom: 10,
   },
   verMasBtn: {
@@ -322,7 +315,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   verMasText: {
-    color: '#3498db',
+    color: '#1e871e',
     fontSize: 14,
     marginRight: 5,
   },
@@ -332,7 +325,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   verTodasText: {
-    color: '#3498db',
+    color: '#1e871e',
     fontWeight: 'bold',
   },
   footer: {
@@ -341,13 +334,13 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 12,
-    color: '#888',
+    color: '#091f09',
   },
   bottomNav: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#091f09',
     borderTopWidth: 1,
     borderTopColor: '#eee',
     paddingVertical: 10,
@@ -363,44 +356,18 @@ const styles = StyleSheet.create({
   },
   navText: {
     fontSize: 12,
-    color: '#888',
+    color: '#fff',
     marginTop: 4,
+    fontWeight: 900
   },
-
-
-  scrollContent: { // Nuevo estilo para el contenido del ScrollView
+  scrollContent: { 
     padding: 20,
-    paddingTop: 30, // Aumentamos el padding superior para bajar el contenido
+    paddingTop: 30, 
   },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 30,
+  welcomeContainer: { 
+    marginTop: 10,
   },
-  userInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  welcomeContainer: { // Nuevo contenedor para los textos
-    marginTop: 10, // Añadimos margen superior para bajar los textos
-  },
-  logo: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    marginRight: 15,
-  },
-  welcomeText: {
-    fontSize: 16,
-    color: '#666',
-  },
-  userName: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#333',
-    marginTop: 2, // Pequeño espacio entre "Bienvenido," y "Residente"
-  },
+
 });
 
 export default ResidentePrincipal;
