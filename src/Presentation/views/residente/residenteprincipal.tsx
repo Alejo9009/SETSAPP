@@ -177,7 +177,7 @@ const ResidentePrincipal = () => {
         
         <TouchableOpacity 
           style={styles.navItem} 
-          onPress={() => navigation.navigate('Login')}
+          onPress={() => navigation.navigate('HomeScreen')}
         >
           <Ionicons name="log-out-outline" size={24} color="#fff" />
           <Text style={styles.navText}>Cerrar Session</Text>
