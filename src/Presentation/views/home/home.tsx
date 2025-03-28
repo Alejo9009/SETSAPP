@@ -27,7 +27,7 @@ export const HomeScreen = () => {
     useEffect(() => {
         const fetchRoles = async () => {
             try {
-                const response = await fetch('http://192.168.1.105:3000/api/auth/roles');
+                const response = await fetch('http://10.1.201.89:3000/api/auth/roles');
                 const data = await response.json();
                 
                 if (response.ok && data.success) {
@@ -73,7 +73,7 @@ export const HomeScreen = () => {
         setLoginLoading(true);
     
         try {
-            const response = await fetch('http://192.168.1.105:3000/api/auth/login', {
+            const response = await fetch('http://10.1.201.89:3000/api/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -9,7 +9,7 @@ export const GuardaLoadingScreen: React.FC = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.replace('RegisterScreen');
+      navigation.replace('GuardaPrincipal');
     }, 2000); 
 
     return () => clearTimeout(timer);

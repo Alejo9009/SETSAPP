@@ -21,7 +21,7 @@ export const Guardabienvenido: React.FC = () => {
 
 
         const timer = setTimeout(() => {
-            navigation.replace('GuardaLoadingScreen');
+            navigation.replace('GuardaPrincipal');
         }, 2000);
         return () => clearTimeout(timer);
     }, [navigation, fadeAnim]);

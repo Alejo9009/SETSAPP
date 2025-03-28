@@ -40,7 +40,7 @@ export const RegisterScreen = () => {
     useEffect(() => {
         const fetchRoles = async () => {
             try {
-                const response = await fetch('http://192.168.1.105:3000/api/auth/roles');
+                const response = await fetch('http://10.1.201.89:3000/api/auth/roles');
                 const data = await response.json();
                 
                 if (response.ok && data.success) {
@@ -92,7 +92,7 @@ export const RegisterScreen = () => {
         }
     
         try {
-            const response = await fetch('http://192.168.1.105:3000/api/auth/register', {
+            const response = await fetch('http://10.1.201.89:3000/api/auth/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -243,6 +243,7 @@ export const RegisterScreen = () => {
                             <Picker.Item label="Cedula de Ciudadanía" value="1" />
                             <Picker.Item label="Cédula de ciudadanía digital" value="2" />
                             <Picker.Item label="Cédulas de Extranjería" value="4" />
+                            
                         </Picker>
                     </View>
                    
@@ -267,6 +268,8 @@ export const RegisterScreen = () => {
                             <Picker.Item label="Dueño" value="dueño" />
                             <Picker.Item label="Residente" value="residente" />
                             <Picker.Item label="Ambos" value="ambos" />
+                            <Picker.Item label="ninguno" value="ninguno" />
+                            
                         </Picker>
                     </View>
 
